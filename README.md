@@ -1,6 +1,6 @@
-<p style="text-align: center;"> <h2> The Hundred Fold (HF) Project </h2></p>
+<p> <center> <h2> The Hundred Fold (HF) Project </h2> </center> </p>
 
-Ceremoniously named after the 8th scroll in Og Mandino's book, "The Greatest Salesman in the World." The hope is that money may be multipled through thoughtful trading. This project was designed and coded by Matt Collier, on an Ubuntu 16.04 LTS machine, with a then-current standard MySQL installation, and a Python environment built up from the base Miniconda distro. This code is offered under the Unlicense. It is a work in progress. A brief description of the code follows. Also, there are many comments offered throughout the code and for most functions.
+Ceremoniously named after the 8th scroll in Og Mandino's book, "The Greatest Salesman in the World." The hope is that money may be multipled through thoughtful trading. This project was designed and coded by Matt Collier, on an Ubuntu 16.04 LTS machine, with a then-current standard MySQL installation, and a Python environment built up from the base [Miniconda](https://conda.io/miniconda.html) distro. This code is offered under the [Unlicense](https://choosealicense.com/licenses/unlicense/). It is a work in progress. A brief description of the code follows. Also, there are many comments offered throughout the code and for most functions.
 
 **common.py**
 The script contains some useful definitions. Some functions are now unused as more sophisticated versions were developed or became uneeded. For instance get_dotw() is the most generalized date getting function and may replace some of the previous, more specific, date getting functions. Also, know that the get_config() function parses out credentials for database signon. I typically keep the config file in a privileged subdirectory.
@@ -22,5 +22,4 @@ A list of Python modules imported in these scripts.
 
 **scan_db.py**
 Fourth script to run each business day. This final script checks broad indicators (across the S&P500), sector indicators, and find potential longs and shorts. A webpage with subpages is generated for the day it's run. This date may be changed on the command line so that one could in principle run it for a past date, and step forward in time running it for subsequent dates to see how your predictions and paper trades work out. There is a known bug in this one for which I should some day upload a fix.
-
 
