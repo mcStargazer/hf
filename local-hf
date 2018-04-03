@@ -1,0 +1,5 @@
+HF_HOME="/home/mcollier/ONYX/W/portfolio"
+25 20 * * 1-5  mcollier $HF_HOME/scripts/get_tickers.py -v >> $HF_HOME/logs/symbols.log
+30 20 * * 1-5  mcollier $HF_HOME/scripts/get_timeseries.py -v >> $HF_HOME/logs/data.log
+55 20 * * 1-5  mcollier $HF_HOME/scripts/make_metrics.py -v >> $HF_HOME/logs/metrics.log
+10 21 * * 1-5  mcollier $HF_HOME/scripts/scan_db.py -v >> $HF_HOME/logs/scan_db.log

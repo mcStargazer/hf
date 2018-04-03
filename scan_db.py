@@ -38,8 +38,8 @@ from pymysql.cursors import DictCursor
 from pandas import read_sql_query as rsql       # conda install pandas
 
 # overriding with local imports
-home = "/home/mcollier/ONYX/W/portfolio/scripts"
-os.chdir(home)
+home = "/home/mcollier/ONYX/W/portfolio"
+os.chdir(os.path.join(home, "scripts"))
 import common
 
 
@@ -96,6 +96,12 @@ def get_sectors(n_con):
 
 def get_longs(n_con, span, price_date):
     """
+    INPUTS:
+        n_con (mysql) - A "normal" pymysql database connection
+        span (str) - 'daily' or 'weekly'
+        price_date (str) - Data in ISO 8601 standard as YYYY-MM-DD
+    OUTPUT:
+        Returns a list of potential long candidates.
     """
     sql = ["SELECT symbol_id FROM {}_metrics".format(span),
            "WHERE price_date='{}'".format(price_date),
@@ -110,6 +116,12 @@ def get_longs(n_con, span, price_date):
 
 def get_shorts(n_con, span, price_date):
     """
+    INPUTS:
+        n_con (mysql) - A "normal" pymysql database connection
+        span (str) - 'daily' or 'weekly'
+        price_date (str) - Data in ISO 8601 standard as YYYY-MM-DD
+    OUTPUT:
+        Returns a list of potential short candidates.
     """
     sql = ["SELECT symbol_id FROM {}_metrics".format(span),
            "WHERE price_date='{}'".format(price_date),
@@ -128,7 +140,7 @@ def get_ticker_info(d_con, tid):
         d_con (mysql) - A pymysql database connection with dict() return
         tid (int) - id of ticker
     OUTPUT:
-        Dictionary with ...
+        Dictionary with information about a ticker.
     """
 
     sql = ["SELECT id,ticker,name,sector FROM symbols",
@@ -143,6 +155,12 @@ def get_ticker_info(d_con, tid):
 
 def report_individuals(n_con, price_date, tickers=[]):  # tickers=singles
     """
+    INPUTS:
+        n_con (mysql) - A "normal" pymysql database connection
+        price_date (str) - Data in ISO 8601 standard as YYYY-MM-DD
+        tickers () - A list of dictionaries, one per ticker.
+    OUTPUT:
+        HTML as a string.
     """
     msg = "{:>3s}, {:>8s}, {:>7s}, {:>6s}, {:5d}, {:5.3f}, {:8.3f}, {:<s}\n"
     url = "<a href='./{}/{}{}.html'> {:s} </a>"
@@ -176,7 +194,7 @@ def bokeh_pages(d_con, span, price_date, att, tickers=[]):
         att (str) -
         tickers (list) - List containing ticker IDs
     OUTPUT:
-        HTML files
+        HTML files on disk.
     """
     # set up variables
     w = 12*60*60*1000  # half day in ms
@@ -409,7 +427,4 @@ if __name__ == "__main__":
     # finally...
     d_con.close()
     n_con.close()
-
-
-
 

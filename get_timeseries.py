@@ -158,7 +158,6 @@ if __name__ == "__main__":
         d4 = lambda x: Decimal(x).quantize(Decimal('0.0000'), rounding=RHE)
         tuplefy = lambda df: [ tuple([dt(i)] + [d4(c) for c in r])
                                for i,r in df.iterrows()]
-        #quandl.ApiConfig.api_key = "JySpnixMfdLMA-RKK62K"
         quandl.ApiConfig.api_key = conf["quandl_key"]
         con = common.get_connection(conf)
 
@@ -217,7 +216,8 @@ if __name__ == "__main__":
                 begin_date = common.get_last_price_date(con, "weekly_data",
                                                         ticker_id)
                 weekly = make_weekly_data(con, ticker_id,
-                                          common.get_last_sunday(begin_date),
+                                          common.get_dotw("prev", "Sunday",
+                                                          begin_date),
                                           today)
                 weekly = tuplefy(weekly)
                 if not args.no_insert:

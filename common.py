@@ -155,60 +155,6 @@ def handle(msg, epack):
     return epack
 
 
-def get_last_sunday(date, encode="iso8601"):
-    """
-    INPUT:
-        date (str) - A day encoded as an iso8601 formatted string: YYYY-MM-DD
-        encode (str) - Options are either 'iso8601' or 'python date'.
-    OUTPUT:
-        Sunday of that week (default iso8601 format)
-    """
-    date = dt.datetime.strptime(date, "%Y-%m-%d")
-    date = (date - dt.timedelta( days=((date.weekday() + 1) % 7) ))
-    if encode == "iso8601":
-        return date.isoformat()[:10]
-    elif encode == "python date":
-        return date
-    else:
-        return "unknown date encoding"
-
-
-def get_this_saturday(date, encode="iso8601"):
-    """
-    INPUT:
-        date (str) - A day encoded as an iso8601 formatted string: YYYY-MM-DD
-        encode (str) - Options are either 'iso8601' or 'python date'.
-    OUTPUT:
-        Saturday of that week (default iso8601 format)
-    """
-    date = dt.datetime.strptime(date, "%Y-%m-%d")
-    date = (date + dt.timedelta( days=(6 - (date.weekday() + 1) % 7) ))
-    if encode == "iso8601":
-        return date.isoformat()[:10]
-    elif encode == "python date":
-        return date
-    else:
-        return "unknown date encoding"
-
-
-def get_previous_day(date, encode="iso8601"):
-    """
-    INPUT:
-        date (str) - A day encoded as an iso8601 formatted string: YYYY-MM-DD
-        encode (str) - Options are either 'iso8601' or 'python date'.
-    OUTPUT:
-        Return the previous day's date (default iso8601 format)
-    """
-    date = dt.datetime.strptime(date, "%Y-%m-%d")
-    date = (date - dt.timedelta( days=1 ))
-    if encode == "iso8601":
-        return date.isoformat()[:10]
-    elif encode == "python date":
-        return date
-    else:
-        return "unknown date encoding"
-
-
 def get_next_day(date, encode="iso8601"):
     """
     INPUT:
@@ -255,7 +201,11 @@ def get_dotw(sign, dotw, from_date="2000-01-01", encode="iso8601"):
         from_date (str) - Starting date given as "YYYY-MM-DD"
         encode (str) - Return type ("iso8601", "python date")
     OUTPUT:
-        Nearby day-of-the-week from given date (default iso8601 format)
+        Nearby day-of-the-week from given date (default iso8601 format). If
+        you ask it to return the previous or next dotw and the from_date is
+        the same dotw, then it returns itself. I.e. Give it a from_date that
+        is a Monday, and ask it for the previous Monday, and you'll just get
+        back the date you gave it.
     """
     # sign, dotw, from_date = "prev", "Monday", "2017-11-15"
     # sign, dotw, from_date = "next", "Friday", "2017-11-15"
@@ -281,19 +231,17 @@ def get_dotw(sign, dotw, from_date="2000-01-01", encode="iso8601"):
 
 if __name__ == "__main__":
 
-    # load data
+    # TEST: load data
     daily = DF.from_csv("wmt_daily_df.csv")
     df = DF(data=wmt, index=wmt["index"])
     df = df.drop("index", axis=1)
 
-    # verification of get_last_sunday() and get_this_saturday() functions
-    date = dt.date.today()
-    sunday = get_last_sunday(date)
-    [sun,mon,tue,wed,thu,fri,sat] = ['']*7
-    days = [sun,mon,tue,wed,thu,fri,sat]
-    for offset in range(7):
-        days[offset] = sunday + dt.timedelta(days=offset)
-    for day in days:
-        (su, sa) = (get_last_sunday(day), get_this_saturday(day))
-        print("for day {}, Sun is {}, Sat is {}".format(day, su, sa))
-
+    # TEST: verification of get_dotw()
+    date = dt.date.today().isoformat()
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"]
+    signs = ["prev", "next"]
+    for sign in signs:
+        for day in days:
+            print("{} {}: {}".format(sign, day, get_dotw(sign, day, date)))
+        
