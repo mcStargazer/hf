@@ -23,6 +23,7 @@
 # standard python library imports
 import argparse
 import datetime
+import os
 import sys
 
 # third party python imports
@@ -30,8 +31,8 @@ from bs4 import BeautifulSoup as miso        # conda install beautifulsoup4
 from requests import get                     # conda install requests
 
 # local imports
-home = "/home/mcollier/ONYX/W/portfolio/scripts"
-local_paths = [home, ]
+home = "/home/mcollier/ONYX/wealth/portfolio"
+local_paths = [os.path.join(home, "scripts"), ]
 sys.path.insert(0, [p for p in local_paths if p not in sys.path])
 import common
 

@@ -38,7 +38,7 @@ from pymysql.cursors import DictCursor
 from pandas import read_sql_query as rsql       # conda install pandas
 
 # overriding with local imports
-home = "/home/mcollier/ONYX/W/portfolio"
+home = "/home/mcollier/ONYX/wealth/portfolio"
 os.chdir(os.path.join(home, "scripts"))
 import common
 

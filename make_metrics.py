@@ -13,7 +13,7 @@
 # MESSAGE:
 # index out of bounds
 # TRACEBACK:
-#   File "/home/mcollier/ONYX/W/portfolio/scripts/make_metrics.py", line 288, in <module>
+#   File "/home/mcollier/ONYX/wealth/portfolio/scripts/make_metrics.py", line 288, in <module>
 #     metrics = make_metrics(con, span, ticker_id, today)
 #
 #   improve logging
@@ -28,7 +28,7 @@
 import argparse
 import datetime as dt
 from itertools import islice
-from os.path import join as join_paths
+import os
 import sys
 from time import time as t
 import warnings
@@ -37,8 +37,8 @@ import warnings
 import pandas as pd                              # conda install panda
 
 # local imports
-home = "/home/mcollier/ONYX/W/portfolio/scripts"
-local_paths = [home, ]
+home = "/home/mcollier/ONYX/wealth/portfolio"
+local_paths = [os.path.join(home, "scripts"), ]
 sys.path.insert(0, [p for p in local_paths if p not in sys.path])
 import common
 

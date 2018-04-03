@@ -26,6 +26,7 @@ import argparse
 from datetime import datetime
 from decimal import Decimal
 from decimal import ROUND_HALF_EVEN as RHE
+import os
 import sys
 from time import sleep, time
 import warnings
@@ -38,8 +39,8 @@ from numpy import nan                            # conda install numpy
 import quandl                                    # conda install quandl
 
 # local imports
-home = "/home/mcollier/ONYX/W/portfolio/scripts"
-local_paths = [home, ]
+home = "/home/mcollier/ONYX/wealth/portfolio"
+local_paths = [os.path.join(home, "scripts"), ]
 sys.path.insert(0, [p for p in local_paths if p not in sys.path])
 import common
 
