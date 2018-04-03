@@ -1,6 +1,6 @@
 <p> <center> <h2> The Hundred Fold (HF) Project </h2> </center> </p>
 
-Ceremoniously named after the 8th scroll in Og Mandino's book, "[The Greatest Salesman in the World](https://www.amazon.com/Greatest-Salesman-World-Og-Mandino/dp/055327757X/)." The hope is that money may be multipled through thoughtful trading. This project was designed and coded by Matt Collier, on an Ubuntu 16.04 LTS machine, with a then-current standard MySQL installation, and a Python 3 environment built up from the base [Miniconda](https://conda.io/miniconda.html) distro. This code is offered under the [Unlicense](https://choosealicense.com/licenses/unlicense/). It is a work in progress. A brief description of the code follows here, and there are many comments offered throughout the code itself.
+Ceremoniously named after the 8th scroll in Og Mandino's book, "[The Greatest Salesman in the World](https://www.amazon.com/Greatest-Salesman-World-Og-Mandino/dp/055327757X/)." The hope is that money may be multipled through thoughtful trading. This project was designed and coded by Matt Collier, on an Ubuntu 16.04 LTS machine, with a then-current standard MySQL installation, and a Python 3 environment built up from the base [Miniconda](https://conda.io/miniconda.html) distro. I have placed this git repository in it's own directory called "scripts". Two other directories are expected at the same level as "scripts", and are named "logs" and "inspection". This code is offered under the [Unlicense](https://choosealicense.com/licenses/unlicense/). It is a work in progress. I would be grateful for any suggestions in improving, debugging, and documenting this project. Give it a spin! Finally, a brief description of the code follows below, and there are many comments offered throughout the code itself.
 
 **common.py**
 <br>The script contains some useful definitions and functions.
@@ -12,13 +12,13 @@ Ceremoniously named after the 8th scroll in Og Mandino's book, "[The Greatest Sa
 <br>Second script to run each business day after about 9:15pm Eastern Time. Gathers End-Of-Day numbers for each of the S&P500 companies through the [Quandl](https://www.quandl.com/) API. I didn't like the way the Quandl weekly summarization was working when I tested it, so I wrote my own weekly aggregation function. Data is inserted into the 'daily_data' and 'weekly_data' database tables.
 
 **hf.conf**
-<br>A sample configuration file used to hold credentials. I placed this file in the /etc/local subdirectory.
+<br>A sample configuration file used to hold credentials. You'll want to edit this file to reflect your particular situation. I placed this file in the /etc/local subdirectory.
 
 **hundredfold.sql**
-<br>Some potentially useful maintenance SQL. Also, contains notes and SQL for installing the mysql database on a Linux machine.
+<br>Some potentially useful maintenance SQL. Also, contains notes and SQL for installing the mysql database on a Linux machine. You'll want to edit this file to reflect your particular situation.
 
 **local-hf**
-<br>Sample cron job definitions. I placed this file in the /etc/cron.d subdirectory.
+<br>Sample cron job definitions. You'll want to edit this file to reflect your particular situation. I placed this file in the /etc/cron.d subdirectory.
 
 **make_metrics.py**
 <br>Third script to run each business day. Functions and metrics as interpreted by me from "[The New Trading for a Living](https://www.amazon.com/New-Trading-Living-Psychology-Discipline/dp/1118443926/)" (2014) by Alexander Elder. These include more or less: Exponential Moving Average, Force Index, Average True Range, Impulse, MACD-fast, MACD-slow, MACD-H, Stock Price Above (or, Below) EMA, and stock price Advance/Decline.
